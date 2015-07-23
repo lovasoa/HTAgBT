@@ -1,0 +1,39 @@
+<main ng-controller="infosPosteController as infosPoste">
+
+<div class="row">
+    <div class="col-xs-6"><button class="btn btn-default btn-block">Appel à un ami</button></div>
+    <div class="col-xs-6"><button class="btn btn-default btn-block">Historique coupures</button></div>
+    <div class="col-xs-6"><button class="btn btn-default btn-block">Histo. interventions</button></div>
+    <div class="col-xs-6"><button class="btn btn-default btn-block">Fiche poste</button></div>
+</div>
+
+<h3>Infos</h3>
+<table class="table">
+    <tr ng-repeat="inf in infosPoste.infos.infos">
+        <th scope="row">{{inf.nom}}</th>
+        <td>{{inf.val}}</td>
+    </tr>
+</table>
+<h3>Annotations</h3>
+<ul class="list-group">
+    <li class="list-group-item" ng-repeat="anno in infosPoste.infos.annotations">
+        <h4 class="list-group-item-heading">{{anno.ANNOTATION_TYPE}}</h4>
+        <p class="list-group-item-text">{{anno.ANNOTATION_COMMENTAIRE}}</p>
+    </li>
+</ul>
+
+<h3>Commentaires</h3>
+<ul class="list-group">
+  <li ng-repeat="com in infosPoste.infos.commentaires"
+      class="list-group-item">
+    {{com.commentaire}}
+  </li>
+</ul>
+<form ng-submit="infosPoste.addComment()">
+<label for="newComment">Ajouter un commentaire</label>
+<textarea id="newComment"
+          class="form-control"
+          ng-model="infosPoste.newComment"></textarea>
+<input type="submit" class="btn btn-success btn-block"/>
+</form>
+</main>

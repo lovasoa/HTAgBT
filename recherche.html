@@ -1,0 +1,30 @@
+<div ng-controller="listePostesController as listePostes">
+  <input type="search" class="form-control" placeholder="Recherche par PS, Départ, Poste, Commune..."
+          ng-model="listePostes.recherche"
+          ng-change="listePostes.search(listePostes.recherche)"/>
+  <small ng-if="listePostes.recherche==''">Postes à proximité</small>
+  <small ng-if="listePostes.recherche!=''">Résultats de recherche</small>
+  <img src="resources/ajax-loader.gif" ng-show="listePostes.loading"/>
+  <ul class="list-group">
+    <li ng-repeat="poste in listePostes.postes" class="list-group-item">
+      <div class="row">
+      <div class="col-xs-1">
+        <span class="label label-success label-as-badge" ng-if="!poste.coupure">✔</span>
+        <span class="label label-warning label-as-badge" ng-if="poste.coupure=='TVX'">🔧</span>
+        <span class="label label-danger label-as-badge"  ng-if="poste.coupure=='INC'">⚠</span>
+      </div>
+      <div class="col-xs-8 col-sm-10">
+        <h4 class="list-group-item-heading">
+          <a href="#/poste/{{poste.idsitr}}">{{poste.nom}}</a>
+        </h4>
+        <p class="list-group-item-text">{{poste.ps}} » {{poste.depart}}</p>
+      </div>
+      <div class="col-xs-1">
+        <a target="_blank"
+          href="http://maps.google.com/?q={{poste.coords[0]}},{{poste.coords[1]}}">🚩</a>
+      </div>
+      </div>
+    </li>
+    <li ng-show="listePostes.loading && listePostes.postes.length==0" class="list-group-item">Chargement...</li>
+  </ul>
+</div>
